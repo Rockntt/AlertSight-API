@@ -1,4 +1,4 @@
-#fastapi #python #postgresql
+# AlertSight-API
 
 Данный REST API реализует контракт взаимодействия [[AlertSight-client]] с [[AlertSight-server]] по следующим эндпоинтам:
 
