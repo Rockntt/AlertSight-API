@@ -1,9 +1,18 @@
+"""
+    AlertSight-API
+
+    REST API для AlertSight
+
+    Flask-RESTful - web core
+
+"""
+
 from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
 from resources import *
-from api.models.Accident import db
+from api.models.accident import db
 
 app = Flask(__name__)
 CORS(app)
