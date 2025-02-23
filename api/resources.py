@@ -1,5 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask import current_app, request
+from sqlalchemy import desc
 from api.models.Accident import Accident, db
 import os
 from datetime import datetime
@@ -15,7 +16,11 @@ class Ping(Resource):
 
 class LastEvent(Resource):
     def get(self):
-        return {'data': 'last_accident'}
+        last_record = Accident.query.order_by(desc(Accident.rowid)).first()
+        if last_record:
+            return {'id': last_record.rowid}, 200
+        else:
+            return {'message': 'No accidents found'}, 404
 
 class Upload(Resource):
     def post(self):
