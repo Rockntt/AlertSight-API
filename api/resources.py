@@ -1,9 +1,10 @@
-from flask_restful import Resource, reqparse
+from flask_restful import Resource, reqparse, abort
 from flask import current_app, request
 from sqlalchemy import desc
 from api.models.Accident import Accident, db
 import os
 from datetime import datetime
+import base64
 from utils import filename_generator
 
 parser = reqparse.RequestParser()
@@ -53,4 +54,22 @@ class Upload(Resource):
 
 class Fetch(Resource):
     def get(self, id):
-        return {'data': 'data-{}'.format(id)}
+        accident = Accident.query.get(id)
+
+        if not accident:
+            abort(404, message=f"Accident with id {id} not found")
+
+        image_path = accident.image
+        if not os.path.exists(image_path):
+            abort(404, message=f"Image file not found at {image_path}")
+
+        with open(image_path, "rb") as image_file:
+            encoded_image = base64.b64encode(image_file.read()).decode('utf-8')
+        accident_data = {
+            "id": accident.rowid,
+            "type": accident.type,
+            "source_id": accident.source_id,
+            "date": accident.date.isoformat(),
+            "image": encoded_image
+        }
+        return accident_data, 200
