@@ -1,6 +1,6 @@
 from flask_restful import Resource, reqparse
 from flask import current_app, request
-from models import Accident, db
+from api.models.Accident import Accident, db
 import os
 from datetime import datetime
 from utils import filename_generator
@@ -16,6 +16,7 @@ class Ping(Resource):
 class LastEvent(Resource):
     def get(self):
         return {'data': 'last_accident'}
+
 class Upload(Resource):
     def post(self):
         type_ = request.form.get('type')
