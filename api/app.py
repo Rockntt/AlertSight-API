@@ -11,7 +11,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
-from resources import *
+from resources import Ping, Upload, LastEvent, Fetch
 from api.models.accident import db
 
 app = Flask(__name__)

@@ -15,8 +15,6 @@ from sqlalchemy import desc
 from utils import filename_generator
 from api.models.accident import Accident, db
 
-# CORS(current_app)
-
 parser = reqparse.RequestParser()
 parser.add_argument('type', type=str, required=True, help='Type is required')
 parser.add_argument('source_id', type=int, required=True, help='Source ID is required')
