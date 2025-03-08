@@ -15,7 +15,7 @@ from sqlalchemy import desc
 from utils import filename_generator
 from api.models.accident import Accident, db
 
-
+# CORS(current_app)
 
 parser = reqparse.RequestParser()
 parser.add_argument('type', type=str, required=True, help='Type is required')
@@ -65,7 +65,7 @@ class Upload(Resource):
         db.session.add(new_accident)
         db.session.commit()
 
-        return {'message': 'Accident saved'}, 201
+        return {'message': 'Accident saved'}, 200
 
 
 class Fetch(Resource):
